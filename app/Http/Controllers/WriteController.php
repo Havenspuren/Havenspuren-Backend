@@ -23,6 +23,6 @@ class WriteController extends Controller
 
     public function deleteRoute($routeId)
     {
-        
+
     }
 }
