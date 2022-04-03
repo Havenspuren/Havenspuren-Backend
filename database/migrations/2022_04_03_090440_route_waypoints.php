@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->rememberToken();
-            $table->timestamps();
+        Schema::create('route_waypoints', function (Blueprint $table) {
+            $table->integer('route_id')->unsigned();
+            $table->integer('waypoint_id')->unsigned();
+            $table->foreign('route_id')->references('id')
+                ->on('routes');
+            $table->foreign('waypoint_id')->references('id')
+                ->on('waypoints');
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::drop('route_waypoints');
     }
 };
