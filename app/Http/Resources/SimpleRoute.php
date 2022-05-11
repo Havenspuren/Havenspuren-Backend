@@ -20,8 +20,8 @@ class SimpleRoute extends JsonResource
             'description' => $this->description,
             'path_to_route_image' => $this->path_to_route_image,
             'expected_time' => $this->expected_time,
-            'waypoint_count' => $this->waypoint_count,
-            'trophy_count' => $this->trophy_count
+            'path_to_map_image' => $this->path_to_map_image,
+            'path_to_character_image' => $this-> path_to_character_image,
         ];
     }
 }
