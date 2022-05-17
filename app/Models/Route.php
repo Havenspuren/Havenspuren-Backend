@@ -20,6 +20,6 @@ class Route extends Model
 
     public function waypoints()
     {
-        return $this->belongsToMany(Waypoint::class, 'route_waypoints');
+        return $this->hasOne(Waypoint::class);
     }
 }
