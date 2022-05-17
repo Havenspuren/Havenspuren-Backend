@@ -5,12 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Media extends Model
+class waypointMedia extends Model
 {
     use HasFactory;
-
-    public function waypoint(){
-        
-        return $this->belongsToMany(Waypoint::Class);
-    }
 }

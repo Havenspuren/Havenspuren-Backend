@@ -9,8 +9,17 @@ class Waypoint extends Model
 {
     use HasFactory;
 
-    public function routes()
-    {
-        return $this->belongsToMany(Route::class, 'route_waypoints');
+    public function routes(){
+        return $this->hasOneThrou(Route::class, 'route_waypoints');
+    }
+
+    public function media(){
+        
+        return $this->belongsToMany(Media::Class);
+    }
+
+    public function trophy(){
+        
+        return $this->hasOne(Trophy::Class);
     }
 }

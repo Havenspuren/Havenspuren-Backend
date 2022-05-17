@@ -20,7 +20,7 @@ class ReadController extends Controller
         //return $routes = Route::all();
 
         $routes = Route::latest()->get();
-        return response()->json([SimpleRoute::collection($routes), 'Route fetched.']);
+        return SimpleRoute::collection($routes);
     }
 
     public function getRouteData($routeId)
@@ -31,6 +31,6 @@ class ReadController extends Controller
         if (is_null($route)) {
             return response()->json('Data not found', 404); 
         }
-        return response()->json([new SimpleRoute($route)]);
+        return new SimpleRoute($route);
     }
 }

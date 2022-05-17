@@ -17,7 +17,7 @@ class WriteController extends Controller
 
     public function createRoute(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required',
             'path_to_route_image' => 'required',
@@ -25,10 +25,6 @@ class WriteController extends Controller
             'path_to_map_image' => 'required',
             'path_to_character_image' => 'required'
         ]);
-
-        if($validator->fails()){
-            return response()->json($validator->errors());       
-        }
 
         $route = Route::create([
             'name' => $request->name,
@@ -40,13 +36,13 @@ class WriteController extends Controller
      
          ]);
 
-        return response()->json(['Route created successfully.', new SimpleRoute($route)]);
+        return new SimpleRoute($route);
     }
 
     public function updateRoute(Request $request, $routeId)
     {
 
-        $validator = Validator::make($request->all(),[
+        $validator = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required',
             'path_to_route_image' => 'required',
@@ -55,10 +51,6 @@ class WriteController extends Controller
             'path_to_character_image' => 'required'
         ]);
 
-        if($validator->fails()){
-            return response()->json($validator->errors());       
-        }
-
         $route = Route::find($routeId);
         $route->name = $request->name;
         $route->description = $request->description;
@@ -66,6 +58,8 @@ class WriteController extends Controller
         $route->expected_time = $request->expected_time;
         $route->path_to_map_image = $request->path_to_map_image;
         $route->path_to_character_image = $request->path_to_character_image;
+
+        $route->fill($validator);
         $route->save();
         
         return response()->json(['Route updated successfully.', new SimpleRoute($route)]);

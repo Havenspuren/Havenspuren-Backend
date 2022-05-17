@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Trophy extends Model
 {
     use HasFactory;
+
+    public function waypoint(){
+        
+        return $this->belongsTo(Waypoint::Class, 'waypoint_id');
+    }
+    
+    
 }
+
