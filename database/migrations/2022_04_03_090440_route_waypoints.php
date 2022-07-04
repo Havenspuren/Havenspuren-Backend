@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('route_waypoints', function (Blueprint $table) {
+        Schema::create('route_waypoint', function (Blueprint $table) {
             $table->integer('route_id')->unsigned();
             $table->integer('waypoint_id')->unsigned();
             $table->foreign('route_id')->references('id')
