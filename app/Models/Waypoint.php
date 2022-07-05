@@ -13,4 +13,10 @@ class Waypoint extends Model
     {
         return $this->belongsToMany(Route::class);
     }
+
+    public function medias()
+    {
+        return $this->belongsToMany(Media::class);  
+    }
+ 
 }

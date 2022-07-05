@@ -20,7 +20,9 @@ class WaypointSeeder extends Seeder
             'short_description'=> 'test',
             'long_description'=> 'test',
             'latitude' => 1,
-            'longitude' => 1 
+            'longitude' => 1,
+            'index_of_route' => 0,
+            'visited' => true
         ]);
     }
 }

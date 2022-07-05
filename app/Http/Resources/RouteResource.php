@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SimpleRoute extends JsonResource
+class RouteResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,7 +14,7 @@ class SimpleRoute extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+         return [
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
@@ -22,7 +22,7 @@ class SimpleRoute extends JsonResource
             'expected_time' => $this->expected_time,
             'path_to_map_image' => $this->path_to_map_image,
             'path_to_character_image' => $this-> path_to_character_image,
-            'waypoints' =>Waypoint::collection($this->waypoints),
+            'waypoints' =>WaypointResource::collection($this->waypoints)
         ];
     }
 }
