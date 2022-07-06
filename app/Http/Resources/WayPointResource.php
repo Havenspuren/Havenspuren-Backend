@@ -14,17 +14,18 @@ class WayPointResource extends JsonResource
      */
     public function toArray($request)
     {
-        //return parent::toArray($request);
         return [
             'id' => $this->id,
             'title' => $this->title,
             'short_description' => $this->short_description,
-            'long_description' =>$this->long_description,
+            'long_description' => $this->long_description,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'index_of_route' => $this->index_of_route,
             'visited' => $this->visited,
-            'media' => MediaResource::collection($this->medias) 
+            'media' => MediaResource::collection($this->medias),
+            'trophy' => new TrophyResource($this->trophy),
+            'audio' => new AudioResource($this->audio)
         ];
     }
 }

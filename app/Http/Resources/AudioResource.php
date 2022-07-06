@@ -14,6 +14,9 @@ class AudioResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'path_to_file' => $this->path_to_file,
+            'extra' => $this->extra
+        ];
     }
 }

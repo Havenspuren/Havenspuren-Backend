@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WaypointMedia extends Model
+class MediaWaypoint extends Model
 {
     use HasFactory;
 }

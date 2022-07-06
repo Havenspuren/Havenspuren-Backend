@@ -14,13 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('trophies', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->integer('waypoint_id')->unsigned();
             $table->integer('x');
             $table->integer('y');
             $table->string('name');
             $table->string('description');
             $table->string('path_to_image');
             $table->timestamps();
+
+            
+            $table->foreign('waypoint_id')->references('id')
+                ->on('waypoints');
         });
     }
 

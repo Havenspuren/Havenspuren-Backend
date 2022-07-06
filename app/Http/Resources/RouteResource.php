@@ -22,7 +22,7 @@ class RouteResource extends JsonResource
             'expected_time' => $this->expected_time,
             'path_to_map_image' => $this->path_to_map_image,
             'path_to_character_image' => $this-> path_to_character_image,
-            'waypoints' =>WaypointResource::collection($this->waypoints)
+            'waypoints' =>WaypointResource::collection($this->waypoints),
         ];
     }
 }

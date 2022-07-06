@@ -11,7 +11,6 @@ class Media extends Model
 
     public function waypoints()
     {
-        return $this->belongsToMany(Waypoint::class);  
+        return $this->belongsToMany(Waypoint::class, 'media_waypoints', 'waypoint_id', 'media_id');  
     }
- 
 }
