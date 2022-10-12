@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Audio extends Model
 {
     use HasFactory;
+
+    public function waypoint()
+    {
+        return $this->belongsTo(Waypoint::class, 'id');
+    }
 }

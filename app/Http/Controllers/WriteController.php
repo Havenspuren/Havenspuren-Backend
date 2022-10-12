@@ -11,18 +11,16 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
+
 class WriteController extends Controller
 {
-    public function __construct()
-    {
-
-    }
-
+    
     public function createRoute(StoreRouteRequest $request)
     {
 
+
         // The incoming request is valid...     
-        
+
         /*
         $validator = $request->validate([
             'name' => 'required|string|max:255',
@@ -32,9 +30,11 @@ class WriteController extends Controller
             'path_to_map_image' => 'required',
             'path_to_character_image' => 'required'
         ]);
+
         */
         
         $imageName = Str::random(32).".".$request->path_to_character_image->getClientOriginalExtension();
+
 
         $route = Route::create([
             'name' => $request->name,
@@ -60,7 +60,9 @@ class WriteController extends Controller
     public function updateRoute(StoreRouteRequest $request, $routeId)
     {
 
+
         // The incoming request is valid...
+        
         /*
         $validator = $request->validate([
             'name' => 'required|string|max:255',
@@ -72,8 +74,6 @@ class WriteController extends Controller
         ]);
         */
 
-        
-
         $route = Route::find($routeId);
         $route->name = $request->name;
         $route->description = $request->description;
@@ -81,6 +81,7 @@ class WriteController extends Controller
         $route->expected_time = $request->expected_time;
         $route->path_to_map_image = $request->path_to_map_image;
         $route->path_to_character_image = $request->path_to_character_image;
+
 
         $route->save();
         

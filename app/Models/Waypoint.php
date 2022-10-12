@@ -9,17 +9,30 @@ class Waypoint extends Model
 {
     use HasFactory;
 
-    public function routes(){
+    
+    //Many to Many
+    public function routes()
+    {
         return $this->belongsToMany(Route::class);
+
+    }
+    
+    //Many to Many
+    public function medias()
+    {
+        return $this->belongsToMany(Media::class, 'media_waypoints', 'waypoint_id', 'media_id');  
     }
 
-    public function media(){
-        
-        return $this->belongsToMany(Media::Class);
+    // One to Many
+    public function trophy()
+    {
+        return $this->hasOne(Trophy::class);
     }
 
-    public function trophy(){
-        
-        return $this->hasOne(Trophy::Class);
+    //one to one
+    public function audio()
+    {
+        return $this->hasOne(Audio::class, 'id');
     }
+ 
 }

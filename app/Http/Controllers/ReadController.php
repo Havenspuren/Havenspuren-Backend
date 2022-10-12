@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\SimpleRoutes;
 use App\Models\Route;
 use Illuminate\Http\Request;
-use App\Http\Resources\SimpleRoute;
+use App\Http\Resources\RouteResource;
 use Validator;
 
 class ReadController extends Controller
@@ -20,7 +20,9 @@ class ReadController extends Controller
         //return $routes = Route::all();
 
         $routes = Route::latest()->get();
-        return SimpleRoute::collection($routes);
+
+        return response()->json([RouteResource::collection($routes), 'Route fetched.']);
+
     }
 
     public function getRouteData($routeId)
@@ -31,6 +33,8 @@ class ReadController extends Controller
         if (is_null($route)) {
             return response()->json('Data not found', 404); 
         }
-        return new SimpleRoute($route);
+
+        return response()->json([new RouteResource($route)]);
+
     }
 }

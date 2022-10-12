@@ -9,8 +9,9 @@ class Media extends Model
 {
     use HasFactory;
 
-    public function waypoint(){
-        
-        return $this->belongsToMany(Waypoint::Class);
+    public function waypoints()
+    {
+        return $this->belongsToMany(Waypoint::class, 'media_waypoints', 'waypoint_id', 'media_id');  
+
     }
 }

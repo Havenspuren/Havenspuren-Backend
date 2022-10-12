@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('long_description');
             $table->integer('latitude');
             $table->integer('longitude');
+            $table->integer('index_of_route');
+            $table->boolean('visited')->default(false);
             $table->timestamps();
         });
     }
