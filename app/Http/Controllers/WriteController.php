@@ -4,20 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\SimpleRoute;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreRouteRequest;
 use App\Models\Route;
 use Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 
 class WriteController extends Controller
 {
-    public function __construct()
+    
+    public function createRoute(StoreRouteRequest $request)
     {
 
-    }
 
-    public function createRoute(Request $request)
-    {
-        $validator = Validator::make($request->all(),[
+        // The incoming request is valid...     
+
+        /*
+        $validator = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required',
             'path_to_route_image' => 'required',
@@ -26,9 +31,10 @@ class WriteController extends Controller
             'path_to_character_image' => 'required'
         ]);
 
-        if($validator->fails()){
-            return response()->json($validator->errors());       
-        }
+        */
+        
+        $imageName = Str::random(32).".".$request->path_to_character_image->getClientOriginalExtension();
+
 
         $route = Route::create([
             'name' => $request->name,
@@ -36,16 +42,29 @@ class WriteController extends Controller
             'path_to_route_image' => $request->path_to_route_image,
             'expected_time' => $request->expected_time,
             'path_to_map_image' => $request->path_to_map_image,
-            'path_to_character_image' => $request->path_to_character_image
+            // we store only the image name in DB
+            'path_to_character_image' => $imageName,
          ]);
+         
+         //save Image in Storag folder
+         Storage::disk('public')->put($imageName, file_get_contents($request->path_to_character_image));
 
-        return response()->json(['Route created successfully.', new SimpleRoute($route)]);
+        //return new SimpleRoute($route);
+
+        //return Json Response
+        return response()->json([
+            'message' => 'Route successfully created.'
+        ], 200);
     }
 
-    public function updateRoute(Request $request, $routeId)
+    public function updateRoute(StoreRouteRequest $request, $routeId)
     {
 
-        $validator = Validator::make($request->all(),[
+
+        // The incoming request is valid...
+        
+        /*
+        $validator = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required',
             'path_to_route_image' => 'required',
@@ -53,10 +72,7 @@ class WriteController extends Controller
             'path_to_map_image' => 'required',
             'path_to_character_image' => 'required'
         ]);
-
-        if($validator->fails()){
-            return response()->json($validator->errors());       
-        }
+        */
 
         $route = Route::find($routeId);
         $route->name = $request->name;
@@ -65,6 +81,8 @@ class WriteController extends Controller
         $route->expected_time = $request->expected_time;
         $route->path_to_map_image = $request->path_to_map_image;
         $route->path_to_character_image = $request->path_to_character_image;
+
+
         $route->save();
         
         return response()->json(['Route updated successfully.', new SimpleRoute($route)]);

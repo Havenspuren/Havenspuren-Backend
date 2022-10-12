@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-
-        Schema::create('route_waypoint', function (Blueprint $table) {
-            $table->integer('route_id')->unsigned();
+        Schema::create('waypoint_media', function (Blueprint $table) {
             $table->integer('waypoint_id')->unsigned();
-            
-            $table->foreign('route_id')->references('id')
-                ->on('routes');
-            $table->foreignId('waypoint_id')->references('id')
+            $table->integer('media_id')->unsigned();
+            $table->foreign('waypoint_id')->references('id')
                 ->on('waypoints');
+            $table->foreign('media_id')->references('id')
+                ->on('media');
         });
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('route_waypoints');
+        Schema::dropIfExists('waypoint_media');
     }
 };

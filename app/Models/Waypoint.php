@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Waypoint extends Model
 {
     use HasFactory;
+
     
     //Many to Many
     public function routes()
     {
         return $this->belongsToMany(Route::class);
+
     }
     
     //Many to Many

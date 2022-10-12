@@ -24,7 +24,7 @@ class SimpleRoutes extends ResourceCollection
                         'path_to_route_image' => $data->path_to_route_image,
                         'expected_time' => $data->expected_time,
                         'waypoint_count' => $data->waypoints->count(),
-                        'trophy_count' => $data->trophy_count
+                        'trophy_count' => $data->trophy_count,
                     ];
                 })
             ]
