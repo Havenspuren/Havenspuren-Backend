@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('routes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->rememberToken();
+            $table->string('description');
+            $table->string('path_to_route_image');
+            $table->integer('expected_time');
+            $table->string('path_to_map_image');
+            $table->string('path_to_character_image');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('routes');
     }
 };

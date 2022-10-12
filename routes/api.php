@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReadController;
+use App\Http\Controllers\WriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/routes', [ReadController::class, 'getRoutes']);
+Route::post('/routes', [WriteController::class, 'createRoute']);
+Route::get('/routes/{routeId}', [ReadController::class, 'getRouteData']);
+Route::put('/routes/{routeId}', [WriteController::class, 'updateRoute']);
+Route::delete('/routes/{routeId}', [WriteController::class, 'deleteRoute']);
