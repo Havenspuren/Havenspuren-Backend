@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('trophies', function (Blueprint $table) {
 
-            $table->increments('id');
-            $table->integer('waypoint_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('waypoint_id')->unsigned();
             $table->integer('x');
             $table->integer('y');
             $table->string('name');

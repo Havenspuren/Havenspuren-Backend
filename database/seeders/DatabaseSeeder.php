@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RouteSeeder::class,
             WaypointSeeder::class,
-            MediaSeeder::class
+            MediaSeeder::class,
+            TrophySeeder::class,
+            AudioSeeder::class
 
         ]);
     }

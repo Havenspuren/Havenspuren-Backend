@@ -20,7 +20,7 @@ class Waypoint extends Model
     //Many to Many
     public function medias()
     {
-        return $this->belongsToMany(Media::class, 'media_waypoints', 'waypoint_id', 'media_id');  
+        return $this->belongsToMany(Media::class, 'waypoint_media', 'waypoint_id', 'media_id');  
     }
 
     // One to Many

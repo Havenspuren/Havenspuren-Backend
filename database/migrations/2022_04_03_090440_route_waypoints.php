@@ -15,12 +15,12 @@ return new class extends Migration
     {
 
         Schema::create('route_waypoint', function (Blueprint $table) {
-            $table->integer('route_id')->unsigned();
-            $table->integer('waypoint_id')->unsigned();
+            $table->bigInteger('route_id')->unsigned();
+            $table->bigInteger('waypoint_id')->unsigned();
             
             $table->foreign('route_id')->references('id')
                 ->on('routes');
-            $table->foreignId('waypoint_id')->references('id')
+            $table->foreign('waypoint_id')->references('id')
                 ->on('waypoints');
         });
     }

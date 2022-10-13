@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('media', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('path_to_file');
             $table->string('extra');
             $table->enum('type', [2,3,4]);
