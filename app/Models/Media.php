@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Media extends Model
 {
     use HasFactory;
+    protected $fillable = ['path_to_file', 'extra', 'type']; 
 
     public function waypoints()
     {

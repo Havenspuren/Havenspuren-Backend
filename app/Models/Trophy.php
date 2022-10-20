@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Trophy extends Model
 {
     use HasFactory;
+    
+    protected $fillable = ['id', 'waypoint_id', 'x', 'y', 'name', 'description', 'path_to_image'];
 
 
     public function Waypoint()

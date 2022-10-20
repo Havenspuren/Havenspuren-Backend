@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Waypoint extends Model
 {
     use HasFactory;
+    protected $fillable = ['id','title','short_description','long_description','latitude','longitude','index_of_route', 'visited']; 
 
     
     //Many to Many
