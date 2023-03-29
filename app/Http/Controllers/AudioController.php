@@ -29,13 +29,13 @@ class AudioController extends Controller
     public function store(StoreAudioRequest $request)
     {
         $fileName = Str::random(32).".".$request->path_to_file->getClientOriginalExtension();
+        
+        Storage::disk('public')->put($fileName, file_get_contents($request->path_to_file));
 
         $audio = Audio::create([
             'path_to_file' => $fileName,
             'extra' => $request->extra,
          ]);
-
-         Storage::disk('public')->put($fileName, file_get_contents($request->path_to_file));
 
         //return Json Response
         return response()->json([

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\SimpleRoute;
 use Illuminate\Http\Request;
+use App\Http\Resources\RouteResource;
 use App\Http\Requests\StoreRouteRequest;
 use App\Models\Route;
 use Validator;
@@ -11,13 +11,30 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
-
-class WriteController extends Controller
+class RouteController extends Controller
 {
-    
-    public function createRoute(StoreRouteRequest $request)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
+         //return new SimpleRoutes(Route::all());
+        //return $routes = Route::all();
 
+        $routes = Route::latest()->get();
+        return response()->json([RouteResource::collection($routes), 'Route fetched.']);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreRouteRequest $request)
+    {
         // The incoming request is valid...     
 
         /*
@@ -47,6 +64,8 @@ class WriteController extends Controller
             // we store only the image name in DB
             'path_to_character_image' => $imageName,
          ]);
+
+         //$route->waypoints()->attach(['1', '2']);
          
         //return new SimpleRoute($route);
 
@@ -56,10 +75,33 @@ class WriteController extends Controller
         ], 200);
     }
 
-    public function updateRoute(StoreRouteRequest $request, $routeId)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($routeId)
     {
+            //return response()->json($routeId);
+        
+            $route = Route::find($routeId);
+            if (is_null($route)) {
+                return response()->json('Data not found', 404); 
+            }
+    
+            return response()->json([new RouteResource($route)]);
+    }
 
-
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(StoreRouteRequest $request, $id)
+    {
         // The incoming request is valid...
         
         /*
@@ -83,15 +125,19 @@ class WriteController extends Controller
         $route->save();
         
         return response()->json(['Route updated successfully.', new SimpleRoute($route)]);
-
     }
 
-    public function deleteRoute($routeId)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($routeId)
     {
         $route = Route::find($routeId);
         $route->delete();
 
         return response()->json('Route deleted successfully');
-
     }
 }

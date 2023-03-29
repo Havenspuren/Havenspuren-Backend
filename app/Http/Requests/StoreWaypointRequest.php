@@ -24,13 +24,13 @@ class StoreWaypointRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'short_description' => 'required',
-            'long_description' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
-            'index_of_route' => 'required',
-            'visited' =>'required',
+            'title' => 'required|string|max:255',
+            'short_description' => 'required|string|max:255',
+            'long_description' => 'required|string|max:255',
+            'latitude' => 'required|string|max:255',
+            'longitude' => 'required|string|max:255',
+            'index_of_route' => 'required|string|max:255',
+            'visited' =>'required|boolean',
         ];
     }
 }

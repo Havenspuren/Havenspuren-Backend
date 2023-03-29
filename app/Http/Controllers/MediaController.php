@@ -30,13 +30,13 @@ class MediaController extends Controller
     {
         $fileName = Str::random(32).".".$request->path_to_file->getClientOriginalExtension();
 
+        Storage::disk('public')->put($fileName, file_get_contents($request->path_to_file));
+
         $media = Media::create([
             'path_to_file' => $fileName,
             'extra' => $request->extra,
             'type' => $request->type
          ]);
-
-         Storage::disk('public')->put($fileName, file_get_contents($request->path_to_file));
 
         //return Json Response
         return response()->json([

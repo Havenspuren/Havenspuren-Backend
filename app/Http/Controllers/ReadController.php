@@ -10,6 +10,7 @@ use Validator;
 
 class ReadController extends Controller
 {
+    
     public function getRoutes()
     {
         //return new SimpleRoutes(Route::all());

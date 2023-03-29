@@ -25,11 +25,11 @@ class StoreRouteRequest extends FormRequest
     {   
         return [
             'name' => 'required|string|max:255',
-            'description' => 'required',
-            'path_to_route_image' => 'required',
-            'expected_time' => 'required',
-            'path_to_map_image' => 'required',
-            'path_to_character_image' => 'required'
+            'description' => 'required|string|max:255',
+            'path_to_route_image' => 'required|string|max:255',
+            'expected_time' => 'required|string|max:255',
+            'path_to_map_image' => 'required|string|max:255',
+            'path_to_character_image' => 'required|string|max:255'
         ];
     }
 }

@@ -24,7 +24,13 @@ class StoreTrophyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'waypoint_id' => 'required|string|max:255',
+            'x' => 'required|integer',
+            'y' => 'required|integer',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'path_to_image' => 'required|string|max:255'
+
         ];
     }
 }

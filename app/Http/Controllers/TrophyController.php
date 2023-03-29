@@ -31,6 +31,8 @@ class TrophyController extends Controller
 
         $imageName = Str::random(32).".".$request->path_to_image->getClientOriginalExtension();
 
+        Storage::disk('public')->put($imageName, file_get_contents($request->path_to_image));
+
         $trophy = Trophy::create([
             'waypoint_id' => $request->waypoint_id,
             'x' => $request->x,
@@ -39,8 +41,6 @@ class TrophyController extends Controller
             'description' => $request->description,
             'path_to_image' => $imageName,
          ]);
-
-         Storage::disk('public')->put($imageName, file_get_contents($request->path_to_image));
 
         //return Json Response
         return response()->json([
