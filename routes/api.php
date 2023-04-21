@@ -20,16 +20,16 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::post('/login', [UserController::class, 'login']);
+//Route::post('/login', [UserController::class, 'login']);
 
-Route::group(['middleware' => 'auth:sanctum'], function(){ 
+Route::group(['middleware' => 'auth:sanctum'], function(){ });
 
     Route::resource('/routes', RouteController::class);
     Route::resource('/waypoints', WaypointController::class)->only(['store', 'update', 'delete']);
     Route::resource('/trophies', TrophyController::class)->only(['store', 'update', 'destroy']);
     Route::resource('/media', MediaController::class)->only(['store', 'update'.'destroy']);
     Route::resource('/audios', AudioController::class)->only(['store', 'update', 'destroy']);
-});
+
 
 
 

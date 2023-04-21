@@ -19,11 +19,16 @@ class RouteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {  
         $routes = Route::latest()->get();
+       
 
-        return response()->json([RouteResource::collection($routes), 'Route fetched.']);
+        if ($request->expectsJson()) {
+            return response()->json([RouteResource::collection($routes), 'Route fetched.']);
+        } else {
+            return view('routes.index', ['routes' => $routes]);
+        }
     }
 
     /**
@@ -65,7 +70,6 @@ class RouteController extends Controller
     public function show($routeId)
     {
             $route = Route::findOrFail($routeId);
-            //dd('not found');
             if (is_null($route)) {
                 return response()->json('Data not found', 404); 
             }
