@@ -9,6 +9,7 @@ use App\Models\Route;
 use Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 
 class RouteController extends Controller
@@ -20,10 +21,8 @@ class RouteController extends Controller
      */
     public function index()
     {
-         //return new SimpleRoutes(Route::all());
-        //return $routes = Route::all();
-
         $routes = Route::latest()->get();
+
         return response()->json([RouteResource::collection($routes), 'Route fetched.']);
     }
 
@@ -35,44 +34,26 @@ class RouteController extends Controller
      */
     public function store(StoreRouteRequest $request)
     {
-        // The incoming request is valid...     
-
-        /*
-        $validator = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required',
-            'path_to_route_image' => 'required',
-            'expected_time' => 'required',
-            'path_to_map_image' => 'required',
-            'path_to_character_image' => 'required'
-        ]);
-
-        */
-        
-        $imageName = Str::random(32).".".$request->path_to_character_image->getClientOriginalExtension();
-
-        //save Image in Storag folder
-        Storage::disk('public')->put($imageName, file_get_contents($request->path_to_character_image));
-
+        $character_image = Str::random(32).".".$request->path_to_route_image->getClientOriginalExtension();
+        $map_image = Str::random(32).".".$request->path_to_map_image->getClientOriginalExtension();
+        $route_image = Str::random(32).".".$request->path_to_character_image->getClientOriginalExtension();
+   
+        Storage::disk('public')->put('/character_image/'.$character_image, file_get_contents($request->path_to_character_image));
+        Storage::disk('public')->put('/map_image/'.$map_image, file_get_contents($request->path_to_map_image));
+        Storage::disk('public')->put('/route_image/'.$route_image, file_get_contents($request->path_to_character_image));
 
         $route = Route::create([
             'name' => $request->name,
             'description' => $request->description,
-            'path_to_route_image' => $request->path_to_route_image,
+            'path_to_route_image' =>  $route_image,
             'expected_time' => $request->expected_time,
-            'path_to_map_image' => $request->path_to_map_image,
-            // we store only the image name in DB
-            'path_to_character_image' => $imageName,
+            'path_to_map_image' => $map_image,
+            'path_to_character_image' => $character_image,
          ]);
 
-         //$route->waypoints()->attach(['1', '2']);
-         
-        //return new SimpleRoute($route);
-
-        //return Json Response
         return response()->json([
             'message' => 'Route successfully created.'
-        ], 200);
+        ], 201);
     }
 
     /**
@@ -83,9 +64,8 @@ class RouteController extends Controller
      */
     public function show($routeId)
     {
-            //return response()->json($routeId);
-        
-            $route = Route::find($routeId);
+            $route = Route::findOrFail($routeId);
+            //dd('not found');
             if (is_null($route)) {
                 return response()->json('Data not found', 404); 
             }
@@ -102,29 +82,44 @@ class RouteController extends Controller
      */
     public function update(StoreRouteRequest $request, $id)
     {
-        // The incoming request is valid...
-        
-        /*
-        $validator = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required',
-            'path_to_route_image' => 'required',
-            'expected_time' => 'required',
-            'path_to_map_image' => 'required',
-            'path_to_character_image' => 'required'
-        ]);
-        */
-
-        $route = Route::find($routeId);
+        $route = Route::findOrFail($id);
         $route->name = $request->name;
         $route->description = $request->description;
-        $route->path_to_route_image = $request->path_to_route_image;
         $route->expected_time = $request->expected_time;
-        $route->path_to_map_image = $request->path_to_map_image;
-        $route->path_to_character_image = $request->path_to_character_image;
-        $route->save();
+
+        if ($request->hasfile('path_to_character_image')) {
+            if (Storage::disk('public')->exists('character_image/'.$route->path_to_character_image)) {
+                Storage::disk('public')->delete('character_image/'.$route->path_to_character_image);
+            }
+
+            $character_image = Str::random(32).".".$request->path_to_character_image->getClientOriginalExtension();
+            Storage::disk('public')->put('/character_image/'.$character_image, file_get_contents($request->path_to_character_image));
+            $route->path_to_character_image = $character_image;          
+        }
+
+        if ($request->hasfile('path_to_route_image')) {
+            if (Storage::disk('public')->exists('/route_image/'.$route->path_to_route_image)) {
+                Storage::disk('public')->delete('/route_image/'.$route->path_to_route_image);
+            }
+
+            $route_image = Str::random(32).".".$request->path_to_route_image->getClientOriginalExtension();
+            Storage::disk('public')->put('/route_image/'.$route_image, file_get_contents($request->path_to_route_image));
+            $route->path_to_route_image = $route_image;          
+        }
+
+        if ($request->hasfile('path_to_character_image')) {
+            if (Storage::disk('public')->exists('map_image/'.$route->path_to_map_image)) {
+                Storage::disk('public')->delete('map_image/'.$route->path_to_map_image);
+            }
+
+            $map_image = Str::random(32).".".$request->path_to_map_image->getClientOriginalExtension();
+            Storage::disk('public')->put('/map_image/'.$map_image, file_get_contents($request->path_to_map_image));
+            $route->path_to_map_image = $map_image;          
+        }
         
-        return response()->json(['Route updated successfully.', new SimpleRoute($route)]);
+        $route->save();
+    
+        return response()->json(['Route updated successfully.', new RouteResource($route)]);
     }
 
     /**
@@ -135,7 +130,7 @@ class RouteController extends Controller
      */
     public function destroy($routeId)
     {
-        $route = Route::find($routeId);
+        $route = Route::findOrFail($routeId);
         $route->delete();
 
         return response()->json('Route deleted successfully');

@@ -26,10 +26,10 @@ class StoreRouteRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'path_to_route_image' => 'required|string|max:255',
-            'expected_time' => 'required|string|max:255',
-            'path_to_map_image' => 'required|string|max:255',
-            'path_to_character_image' => 'required|string|max:255'
+            'path_to_route_image' => 'required|image|mimes:jpg,jpeg,png,bmp,gif',
+            'expected_time' => 'required|integer',
+            'path_to_map_image' => 'required|image|mimes:jpg,jpeg,png,bmp,gif',
+            'path_to_character_image' => 'required|image|mimes:jpg,jpeg,png,bmp,gif'
         ];
     }
 }

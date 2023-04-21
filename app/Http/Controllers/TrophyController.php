@@ -30,6 +30,7 @@ class TrophyController extends Controller
     {
 
         $imageName = Str::random(32).".".$request->path_to_image->getClientOriginalExtension();
+        print_r($imageName);
 
         Storage::disk('public')->put($imageName, file_get_contents($request->path_to_image));
 
@@ -42,7 +43,6 @@ class TrophyController extends Controller
             'path_to_image' => $imageName,
          ]);
 
-        //return Json Response
         return response()->json([
             'message' => 'Trophy successfully created.'
         ], 200);
@@ -89,9 +89,8 @@ class TrophyController extends Controller
      */
     public function destroy($trophyId)
     {
-        $trophy = Trophy::find($trophyId);
-        $trophy->delete();
-
+        $trophy = Trophy::find($trophyId)->delete();
+    
         return response()->json('Trophy deleted successfully');
     }
 }

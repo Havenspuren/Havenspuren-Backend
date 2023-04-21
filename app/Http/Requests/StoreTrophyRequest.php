@@ -25,8 +25,8 @@ class StoreTrophyRequest extends FormRequest
     {
         return [
             'waypoint_id' => 'required|string|max:255',
-            'x' => 'required|integer',
-            'y' => 'required|integer',
+            'x' => 'required|integer|between:0,100',
+            'y' => 'required|integer|between:0,100',
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'path_to_image' => 'required|string|max:255'

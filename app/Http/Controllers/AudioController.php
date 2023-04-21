@@ -37,7 +37,6 @@ class AudioController extends Controller
             'extra' => $request->extra,
          ]);
 
-        //return Json Response
         return response()->json([
             'message' => 'Trophy successfully created.'
         ], 200);
@@ -79,9 +78,8 @@ class AudioController extends Controller
      */
     public function destroy($audioId)
     {
-        $audio = Audio::find($audioId);
-        $audio->delete();
-
+        $audio = Audio::find($audioId)->delete();
+    
         return response()->json('Audio deleted successfully');
     }
 }

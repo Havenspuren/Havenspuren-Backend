@@ -27,9 +27,9 @@ class StoreWaypointRequest extends FormRequest
             'title' => 'required|string|max:255',
             'short_description' => 'required|string|max:255',
             'long_description' => 'required|string|max:255',
-            'latitude' => 'required|string|max:255',
-            'longitude' => 'required|string|max:255',
-            'index_of_route' => 'required|string|max:255',
+            'latitude' => 'required|integer',
+            'longitude' => 'required|integer',
+            'index_of_route' => 'required|integer',
             'visited' =>'required|boolean',
         ];
     }

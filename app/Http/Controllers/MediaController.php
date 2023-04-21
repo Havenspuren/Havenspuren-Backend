@@ -38,7 +38,6 @@ class MediaController extends Controller
             'type' => $request->type
          ]);
 
-        //return Json Response
         return response()->json([
             'message' => 'Media successfully created.'
         ], 200);
