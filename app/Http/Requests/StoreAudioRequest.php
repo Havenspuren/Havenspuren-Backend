@@ -24,7 +24,8 @@ class StoreAudioRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'path_to_file' => 'required|string|max:255',
+            'extra' =>'required|string|max:255'
         ];
     }
 }

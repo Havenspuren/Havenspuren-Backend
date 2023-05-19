@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Waypoint;
+use App\Models\Route;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreWaypointRequest;
 
@@ -26,8 +27,22 @@ class WaypointController extends Controller
      */
     public function store(StoreWaypointRequest $request)
     {
-        
+       /*
         $waypoint = Waypoint::create([
+            'title' => $request->title,
+            'short_description' => $request->short_description,
+            'long_description' => $request->long_description,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'index_of_route' => $request->index_of_route,
+            'visited' => $request->visited
+         ]);*/
+    
+         $route = Route::findOrFail($request->routeId);
+    
+         //$waypoint->routes()->attach($route);
+       
+         $route->waypoints()->create([
             'title' => $request->title,
             'short_description' => $request->short_description,
             'long_description' => $request->long_description,
@@ -36,12 +51,10 @@ class WaypointController extends Controller
             'index_of_route' => $request->index_of_route,
             'visited' =>$request->visited,
          ]);
-         
-
-        //return Json Response
+       
         return response()->json([
             'message' => 'Waypoint successfully created.'
-        ], 200);
+        ], 201);
     }
 
     /**
@@ -90,6 +103,5 @@ class WaypointController extends Controller
         $waypoint->delete();
 
         return response()->json('Waypoint deleted successfully');
-        
     }
 }

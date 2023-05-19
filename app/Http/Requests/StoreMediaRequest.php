@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreMediaRequest extends FormRequest
 {
@@ -24,7 +25,10 @@ class StoreMediaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'path_to_file' => 'required|string|max:255',
+            'extra' => 'required|string|max:255',
+            'type' => ['required', Rule::in(['2','3','4'])]
+
         ];
     }
 }

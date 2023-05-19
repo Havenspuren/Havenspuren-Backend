@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             WaypointSeeder::class,
             MediaSeeder::class,
             TrophySeeder::class,
-            AudioSeeder::class
+            AudioSeeder::class,
+            UsersTableSeeder::class
 
         ]);
     }

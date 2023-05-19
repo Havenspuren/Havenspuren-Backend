@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class Route extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','name','description','path_to_route_image','expected_time','path_to_map_image','path_to_character_image']; 
+    protected $fillable = ['name','description','path_to_route_image','expected_time','path_to_map_image','path_to_character_image']; 
 
     protected function count_waypoints(): Attribute
     {
@@ -20,7 +20,7 @@ class Route extends Model
 
     public function waypoints()
     {
-        return $this->belongsToMany(Waypoint::class);
+        return $this->belongsToMany(Waypoint::class, 'route_waypoint');
 
     }
 }
