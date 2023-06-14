@@ -1,0 +1,73 @@
+header,
+footer {
+    height: 6rem;
+}
+
+.back-btn {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+}
+
+.back-btn:hover {
+    background-color: #0b5ed7 !important;
+}
+
+.actions button {
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.actions .show {
+    color: #1a8754;
+}
+
+.actions .edit {
+    color: #0d6efd;
+}
+
+.actions .delete {
+    color: #dc3545;
+}
+
+table td {
+    vertical-align: middle;
+}
+
+table img,
+.edit-route img {
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.no-error {
+    opacity: 0;
+}
+
+.error {
+    opacity: 1 !important;
+}
+
+.message {
+    z-index: 100000;
+}
+
+.route-waypoints .box {
+    min-height: 7rem;
+}
+
+.user {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.user.clicked {
+    transform: translateX(-7rem);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
